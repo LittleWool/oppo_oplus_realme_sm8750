@@ -116,7 +116,7 @@ echo "CONFIG_LOCALVERSION_AUTO=n" >> ./common/arch/arm64/configs/gki_defconfig
 if [[ $KSU_BRANCH == [yYrR] ]]; then
   echo ">>> 拉取 ReSukiSU 并设置版本（由于SukiSU长期未维护无法正常编译，且ReSukiSU兼容sukisu管理器，故SukiSU源码仓库已重定向为resukisu）..."
   curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash -s main
-  echo 'CONFIG_KSU_FULL_NAME_FORMAT="%TAG_NAME%-%COMMIT_SHA%@cctv18"' >> ./common/arch/arm64/configs/gki_defconfig
+  echo 'CONFIG_KSU_FULL_NAME_FORMAT="%TAG_NAME%-%COMMIT_SHA%@LittleWool"' >> ./common/arch/arm64/configs/gki_defconfig
 elif [[ "$KSU_BRANCH" == "n" || "$KSU_BRANCH" == "N" ]]; then
   echo ">>> 拉取 KernelSU Next 并设置版本..."
   curl -LSs "https://raw.githubusercontent.com/pershoot/KernelSU-Next/refs/heads/dev-susfs/kernel/setup.sh" | bash -s dev-susfs
@@ -326,6 +326,7 @@ if [[ "$APPLY_DROIDSPACES" == [sSeE] ]]; then
   if [[ "$APPLY_DROIDSPACES" == [eE] ]]; then
     echo "正在启用容器环境扩展支持..."
     # 开启虚拟 HCI 设备支持
+    echo "CONFIG_USER_NS=y" >> "$DEFCONFIG_FILE"
     echo "CONFIG_BT_HCIVHCI=y" >> "$DEFCONFIG_FILE"
     # 开启 systemd-coredump 支持
     echo "CONFIG_STATIC_USERMODEHELPER=n" >> "$DEFCONFIG_FILE"
